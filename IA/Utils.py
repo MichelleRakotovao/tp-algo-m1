@@ -47,3 +47,24 @@ class Utils:
         new_board = board
         new_board |= (1 << move)  
         return new_board
+    
+    def isCheck(self, board):
+        # Vérification d'alignement horizontal, vertical et croisé sur le BitBoard
+        # alignement horizontal
+        for i in range(self.border_size - 2):
+            if board & (board >> (i + 1)) & (board >> (i + 2)):
+                return True
+
+        # alignement vertical
+        for i in range(self.border_size - 2):
+            if board & (board >> (i + self.border_size)) & (board >> (i + 2 * self.border_size)):
+                return True
+
+        # alignement croisé
+        if board & (board >> (self.border_size + 1)) & (board >> (2 * self.border_size + 2)):
+            return True
+        
+        if board & (board >> (self.border_size - 1)) & (board >> (2 * self.border_size - 2)):
+            return True
+
+        return False

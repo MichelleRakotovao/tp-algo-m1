@@ -52,3 +52,27 @@ class Bits:
         occupied = board.myPieces | board.opponentPieces
         open_position = Bits.on_border & ~occupied
         return open_position
+    
+    def isCheck(board):
+    # Vérification des lignes horizontales
+        for row in range(3):
+            line = (board >> (row * 3)) & 0b111
+            if line == 0b111:
+                return True
+
+        # Vérification des colonnes verticales
+        for col in range(3):
+            column = ((board >> col) & 1) & ((board >> (col + 3)) & 1) & ((board >> (col + 6)) & 1)
+            if column == 1:
+                return True
+
+        # Vérification de la diagonale principale (haut gauche -> bas droite)
+        if (board & 0b100000001) == 0b100000001 and (board & 0b001001000) == 0b001001000:
+            return True
+
+        # Vérification de la diagonale secondaire (haut droite -> bas gauche)
+        if (board & 0b001000100) == 0b001000100 and (board & 0b100000010) == 0b100000010:
+            return True
+
+        return False
+
