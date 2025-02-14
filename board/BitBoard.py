@@ -14,19 +14,18 @@ class BitBoard :
         self.opponentPieces = 0
 
         if goes_first:
-         self.myPieces |= Bits.My_tourn
+            self.myPieces |= Bits.My_tourn
         else:
             self.opponentPieces |= Bits.My_tourn
 
     def print_board(self):
         Bits.affichage_fanorona3(self.myPieces,self.opponentPieces)
 
-    #def make_move(self , row , col ):
-    #    if not self.is_valid_move(col):
-    #       raise ValueError("Mouvement invalide")
-        
-
     def place_piece(self, row, col, is_my_piece=True):
+        print(self.pieces_placed)
+        if(self.pieces_placed>5):
+            print("deplace les pieces en utilisant make_move()")
+            return
         bit = Bits.at(row, col)
         if (self.myPieces | self.opponentPieces) & bit:
             raise ValueError("Case déjà occupée")
@@ -37,6 +36,8 @@ class BitBoard :
             self.opponentPieces |= bit
 
         self.pieces_placed += 1
+        self.print_board()
+        self.check_victory()
         self.change_player()
 
     def can_move_pieces(self):
@@ -46,8 +47,6 @@ class BitBoard :
         if not self.can_move_pieces():
             raise ValueError("Toutes les pièces doivent être placées avant de pouvoir bouger")
 
- 
-    
         start_bit = Bits.at(start_row, start_col)
         end_bit = Bits.at(end_row, end_col)
         
@@ -56,7 +55,7 @@ class BitBoard :
             raise ValueError("Mouvement invalide")
 
                 # Vérification des mouvements adjacents ou dans une direction spécifique (diagonale, etc.)
-        if not self.is_adjacent(start_row, start_col, end_row, end_col):
+        if not Bits.is_adjacent(start_row, start_col, end_row, end_col):
             raise ValueError("Le mouvement n'est pas adjacent ou valide selon la règle")
 
 
@@ -68,11 +67,9 @@ class BitBoard :
             self.opponentPieces &= ~start_bit
             self.opponentPieces |= end_bit
 
-        # Capture de l'adversaire si possible
-        #if self.opponentPieces & end_bit:
-        #    self.opponentPieces &= ~end_bit
-
         # Changement de joueur
+        self.print_board()
+        self.check_victory()
         self.change_player()
 
     def is_valid_move(self, start_bit, end_bit):
@@ -89,22 +86,15 @@ class BitBoard :
         self.opponentPieces ^= Bits.My_tourn
 
     def check_victory(self):
-        if Bits.count(self.opponentPieces) == 0:
-            return "Joueur 1 gagne!"
-        elif Bits.count(self.myPieces) == 0:
-            return "Joueur 2 gagne!"
-        return "Partie en cours"
+        if(Bits.isCheck(self.opponentPieces)):
+            print("player 1 win")
+            self.reset5()
+            return "oppenBorder wine "
+        if(Bits.isCheck(self.myPieces)):
+            print("oplayer 2 win")
+            self.reset5()
+            return "myPieces wine "
     
-
-    #def get_successors(self , position_i , position_J):
-        
-
-    #def reset_game(self):
-    #    self.initial_position(True)
-    #    self.pieces_placed = 0
-
-    #def change_Player(self):
-
-    #def check_victory(self, pieces):
-
-    #def reset_game(self):
+    def reset (self):
+        self.myPieces = 0
+        self.opponentPieces = 0

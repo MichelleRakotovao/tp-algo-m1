@@ -1,35 +1,15 @@
 from board.BitBoard import BitBoard
-from utils.Bits import Bits
-
-bord1 = BitBoard()
-
-
-bord1.place_piece(2,0)
-bord1.place_piece(1,1)
-bord1.place_piece(1,0)
-bord1.place_piece(0,2)
-bord1.place_piece(0,0)
-
-#bord1.print_board()
-
-#print(Bits.isCheck(bord1.myPieces))
-
-succ = Bits.get_successors(2,2)
-
-Bits.affichage_fanorona3(succ,0)
-
-#print(Bits.is_adjacent(0, 2, 1, 1))
-
-#bord1.print_board()
-#openBoard = Bits.open_board(bord1)
-
-#print(bord1.is_adjacent(0,0 , 0,1))
-
-#bord1.get_successors(10 , bord1.myPieces , bord1.opponentPieces)
-
-#print(bin(openBoard))
+from IA.IA_module import AiModule
+from utils.utils import manual_input
 
 
+player = int(input("player1 ou player2 [1 ou 2] :"))
+current_player = "AI"
+if(player==2):
+    bord1 = BitBoard(False)
+else:
+    bord1 = BitBoard()
 
-
+ai = AiModule(max_depth=3)
+manual_input(bord1,ai)
 
