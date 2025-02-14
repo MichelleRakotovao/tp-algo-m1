@@ -1,41 +1,22 @@
-# tp-algo-m1
+# TP-ALGO-M1
 
 Classe : ISAIA 4
-RAJOHARIVELO Andriarivony Antenaina, numéro: 01
-a developpé la partie II "Création d'une interface graphique jouable"
-RAHERIMANANA Andriniaina Koloina Mandresy, numéro: 05
-a developpé dans la partie 1, les questions: 2, 3, 4, 5
-RAKOTOVAO Holiantenaina Josée Michelle, numéro : 17
-a aussi developpé la partie II "Création d'une interface graphique jouable"
 
-## Table des matières TOVO Jean Bien aimé, numéro: 15:
+## TOVO Jean Bien-aimé, numéro : 15
 
-1. [Introduction](#introduction)
-2. [Règles du jeu](#règles-du-jeu)
-3. [Fonctionnalités principales](#fonctionnalités-principales)
+1. [Règles du jeu](#règles-du-jeu)
+2. [Fonctionnalités principales](#fonctionnalités-principales)
    - [Création et gestion des parties](#création-et-gestion-des-parties)
    - [Traitement Bit à Bit](#traitement-bit-à-bit)
-   - [Mouvements et Successeurs](#mouvements-et-successeurs)
+   - [Mouvements et successeurs](#mouvements-et-successeurs)
+3. [Implémentation Minimax et élagage alpha-beta](#ia)
 
-## Règles du jeu
+## RAHERIMANANA Andriniaina Koloina Mandresy, numéro : 05
 
-#### `get_successors(i, j)`
+1. [Implémentation Minimax](#ia)
+2. [Implémentation élagage alpha-beta](#ia)
+3. [Machine learning](#ia)
 
-Cette fonction calcule les successeurs possibles pour une position donnée sur le plateau (i, j) :
+## RAKOTOVAO Holiantenaina Josée Michelle, numéro : 17 et RAJOHARIVELO Andriarivony Antenaina, numéro : 01
 
-```python
-def get_successors(i, j):
-    successors = 0
-    directions = [
-        (-1, 0), (1, 0), (0, -1), (0, 1),
-        (-1, -1), (1, 1), (-1, 1), (1, -1)
-    ]
-
-    for di, dj in directions:
-        ni, nj = i + di, j + dj
-        if 0 <= ni < 3 and 0 <= nj < 3 and Bits.is_adjacent(i, j, ni, nj):
-            position = ni * 3 + nj
-            successors |= (1 << position)
-
-    return successors
-```
+[Création d'une interface graphique jouable](#frontend)
