@@ -1,5 +1,8 @@
 from utils.Bits import Bits
 class Evaluation:
+
+
+    
     @staticmethod
     def evaluate(board):
         score = 0

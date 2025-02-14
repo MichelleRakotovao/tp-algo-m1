@@ -99,48 +99,6 @@ class BitBoard :
     #def get_successors(self , position_i , position_J):
         
 
-    def is_adjacent(self , i1, j1, i2, j2):
-        di = i2 - i1
-        dj = j2 - j1
-
-        # Vérification des déplacements adjacents horizontaux et verticaux
-        if (di, dj) in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
-            return True
-        
-        # Vérification des déplacements diagonaux
-        if (di, dj) in [(-1, -1), (1, 1), (-1, 1), (1, -1)]:
-            if (i1 == j1) or (i1 == -j1):
-                if (i1 == j1 and i2 == j2) or (i1 == -j1 and i2 == -j2):
-                    return True
-
-        return False
-
-    def get_successors(self, i, j):
-        successors = []
-        
-        # Les déplacements possibles (horizontaux, verticaux et diagonaux)
-        directions = [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, 1), (-1, 1), (1, -1)]
-        
-        for di, dj in directions:
-            ni, nj = i + di, j + dj
-            
-            # Vérifier que la nouvelle position est valide (dans les limites du plateau)
-            if 0 <= ni < self.rows and 0 <= nj < self.cols:
-                bit = Bits.at(ni, nj)
-                
-                # Vérification que la case cible est libre
-                if not (self.myPieces & bit or self.opponentPieces & bit):
-                    successors.append((ni, nj))  # Ajouter la case comme successeur
-
-        return successors
-
-
-            
-
-        
-
-
-
     #def reset_game(self):
     #    self.initial_position(True)
     #    self.pieces_placed = 0

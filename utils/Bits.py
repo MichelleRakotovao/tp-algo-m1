@@ -53,26 +53,77 @@ class Bits:
         open_position = Bits.on_border & ~occupied
         return open_position
     
-    def isCheck(board):
-    # Vérification des lignes horizontales
-        for row in range(3):
-            line = (board >> (row * 3)) & 0b111
-            if line == 0b111:
+    def isCheck(board: int) -> bool:
+        lignes = [0b111, 0b111000, 0b111000000]
+        colonnes = [0b1001001, 0b010010010, 0b001001001]
+        diagonales = [0b100010001, 0b001010100]
+
+        for ligne in lignes:
+            if board & ligne == ligne:
                 return True
 
-        # Vérification des colonnes verticales
-        for col in range(3):
-            column = ((board >> col) & 1) & ((board >> (col + 3)) & 1) & ((board >> (col + 6)) & 1)
-            if column == 1:
+        for colonne in colonnes:
+            if board & colonne == colonne:
                 return True
 
-        # Vérification de la diagonale principale (haut gauche -> bas droite)
-        if (board & 0b100000001) == 0b100000001 and (board & 0b001001000) == 0b001001000:
+        for diag in diagonales:
+            if board & diag == diag:
+                return True
+
+        return False
+    
+    
+    def is_adjacent(i1, j1, i2, j2):
+        di = i2 - i1
+        dj = j2 - j1
+
+        # Vérification des déplacements adjacents horizontaux et verticaux
+        if (di, dj) in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
             return True
-
-        # Vérification de la diagonale secondaire (haut droite -> bas gauche)
-        if (board & 0b001000100) == 0b001000100 and (board & 0b100000010) == 0b100000010:
+        
+        # Vérification des déplacements diagonaux
+        if (di, dj) in [(-1, -1), (1, 1), (-1, 1), (1, -1)] and (i1+j1)%2 == 0 :
             return True
 
         return False
+    
+    def is_adjacent2(i1, j1, i2, j2):
+        di = i2 - i1
+        dj = j2 - j1
+
+        # Vérification des déplacements adjacents horizontaux et verticaux
+        if (di, dj) in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+            return True
+        
+        # Vérification des déplacements diagonaux
+        if (di, dj) in [(-1, -1), (1, 1), (-1, 1), (1, -1)]:
+            print(di , dj )
+            if (i1 == j1) or (i1 == -j1):
+                print(di , dj )
+                if (i1 == j1 and i2 == j2) or (i1 == -j1 and i2 == -j2):
+                    return True
+
+        return False
+
+
+
+    def get_successors(i, j):
+        successors = 0
+        directions = [
+            (-1, 0), (1, 0), (0, -1), (0, 1),
+            (-1, -1), (1, 1), (-1, 1), (1, -1)
+        ]
+
+        for di, dj in directions:
+            ni, nj = i + di, j + dj
+            #print(ni , nj)
+            #print("     ****   ")
+            if 0 <= ni < 3 and 0 <= nj < 3 and Bits.is_adjacent(i, j, ni, nj):
+                #print(ni , nj)
+                position = ni * 3 + nj
+                successors |= (1 << position)
+
+        return successors
+
+
 
