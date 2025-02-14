@@ -98,3 +98,6 @@ class BitBoard :
     def reset (self):
         self.myPieces = 0
         self.opponentPieces = 0
+    
+    def get_all_possible_moves():
+        Bits.open_board(self) & 

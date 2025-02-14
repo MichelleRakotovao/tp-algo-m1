@@ -87,25 +87,6 @@ class Bits:
 
         return False
     
-    def is_adjacent2(i1, j1, i2, j2):
-        di = i2 - i1
-        dj = j2 - j1
-
-        # Vérification des déplacements adjacents horizontaux et verticaux
-        if (di, dj) in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
-            return True
-        
-        # Vérification des déplacements diagonaux
-        if (di, dj) in [(-1, -1), (1, 1), (-1, 1), (1, -1)]:
-            print(di , dj )
-            if (i1 == j1) or (i1 == -j1):
-                print(di , dj )
-                if (i1 == j1 and i2 == j2) or (i1 == -j1 and i2 == -j2):
-                    return True
-
-        return False
-
-
 
     def get_successors(i, j):
         successors = 0
@@ -124,6 +105,8 @@ class Bits:
                 successors |= (1 << position)
 
         return successors
-
-
+    
+        def get_all_successors(board):
+            all_moves = 0 
+            
 
